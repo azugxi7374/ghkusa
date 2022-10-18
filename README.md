@@ -1,0 +1,1 @@
+npm packageの勉強用に作成
