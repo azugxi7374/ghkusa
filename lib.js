@@ -1,23 +1,13 @@
-#!/usr/bin/env node
 import fetch from 'node-fetch'
 import jsdom from 'jsdom'
 
-let exitCode = 1;
-async function main() {
-    if (process.argv.length < 3) {
-        console.error('ERROR: undefined username.');
-        return;
-    }
-
-    const user = process.argv[2];
-
+export async function getGrass(user) {
     const url = `https://github.com/${user}`;
     const f = fetch(url);
 
     const res = await f;
     if (res.status >= 400) {
-        console.error(`ERROR: ${res.statusText}`);
-        return;
+        throw new Error(`ERROR: ${res.statusText}`);
     } else {
         const text = await res.text();
 
@@ -41,13 +31,7 @@ async function main() {
                 }
             }
         }
-        console.log({ user, currentStreak: current, lastContributed, longestStreak: longest });
-        exitCode = 0;
+        return { user, currentStreak: current, lastContributed, longestStreak: longest };
     }
 }
 
-process.on("exit", function () {
-    process.exit(exitCode);
-});
-
-main();

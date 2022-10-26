@@ -10,7 +10,7 @@
   "license": "ISC",
   "type": "module",
   "bin": {
-    "ghkusa": "main.js"
+    "ghkusa": "cli.js"
   },
   "dependencies": {
     "jsdom": "^20.0.1",
